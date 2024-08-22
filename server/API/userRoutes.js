@@ -56,7 +56,6 @@ router.post('/get-module-progress', async (req, res) => {
     const { topic_id, user_ID } = req.body
     try {
         const user = await Users.findById(user_ID);
-        console.log(user)
         if (!user) {
             return res.status(404).json({ msg: 'User Not Found' });
         }

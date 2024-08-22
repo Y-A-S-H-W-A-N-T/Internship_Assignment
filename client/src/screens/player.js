@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import axios from 'axios';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router'
+import styles from '../styles/player.module.css'
 
 const Player = () => {
   const { topic, id } = useParams();
@@ -12,7 +13,7 @@ const Player = () => {
   const [video, setVideo] = useState(null)
   const [next, setNext] = useState(false)
   const location = useLocation();
-  const { topic_id, video_id } = location.state;
+  const { topic_id, video_id, completeStatus } = location.state;
 
   const fetchVideo = async () => {
     try {
@@ -72,6 +73,7 @@ const Player = () => {
       state: {
         topic_id: topic_id,
         video_id: video[id]._id,
+        completeStatus: completeStatus
       },
     });
     window.location.reload();
@@ -90,15 +92,22 @@ const Player = () => {
   }
 
   return (
-    <div>
-      {video && <h1>{id}/{video.length}</h1>}
-      {video && (
-        <div data-vjs-player style={{ width: '200px', height: '200px' }}>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        {video && <div className={styles.progress}>{id}/{video.length}</div>}
+        {video && completeStatus && <div className={styles.percentage}>{Math.floor((Number(completeStatus)/video.length)*100)}%</div>}
+      </div>
+      {video &&
+        <div data-vjs-player className={styles.videoPlayer} style={{height: '500px',width: '600px'}}>
           <video ref={videoRef} className="video-js vjs-big-play-centered" />
         </div>
+      }
+      {next && <button className={styles.button} onClick={PlayNext}>NEXT VIDEO</button>}
+      {video && Number(id) === video.length && (
+        <div className={styles.endMessage}>
+          <h3 onClick={()=>navigate('/dashboard',{ replace: true })} className={styles.button}>Back to HOME</h3>
+        </div>
       )}
-      {next && <button onClick={PlayNext}>NEXT VIDEO -{'>'}</button>}
-      {video && Number(id) === video.length? <h2>End of The Course <h3>Back to HOME</h3></h2> : ''}
     </div>
   );
 };
