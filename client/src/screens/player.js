@@ -46,7 +46,7 @@ const Player = () => {
         controlBar: {
           children: ['playToggle', 'volumePanel', 'fullscreenToggle', 'progressControl'],
         },
-      });
+      })
 
       playerRef.current.on('ended', () => {
         storeProgress()
@@ -77,19 +77,28 @@ const Player = () => {
     window.location.reload();
   }
 
+  const userID = window.localStorage.getItem('userID')
+
   const storeProgress = async()=>{
-    alert("Store Video Progress")
+    await axios.post('http://localhost:8000/user/store-progress',{
+      topic: topic,
+      topic_id: topic_id,
+      video_id: video[id-1]._id,
+      user_ID: userID,
+      progress: 'completed'
+    })
   }
 
   return (
     <div>
+      {video && <h1>{id}/{video.length}</h1>}
       {video && (
         <div data-vjs-player style={{ width: '200px', height: '200px' }}>
           <video ref={videoRef} className="video-js vjs-big-play-centered" />
         </div>
       )}
       {next && <button onClick={PlayNext}>NEXT VIDEO -{'>'}</button>}
-      {video && Number(id) === video.length? <h2>End of The Course</h2> : ''}
+      {video && Number(id) === video.length? <h2>End of The Course <h3>Back to HOME</h3></h2> : ''}
     </div>
   );
 };
