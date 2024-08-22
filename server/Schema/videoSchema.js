@@ -3,12 +3,12 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 
-const video = new Schema({
+const video = new Schema({ // store watched videos in userSchema
     video_number: String,
     video_URL: String
 })
 
-const videoSchema = new Schema({
+const videoSchema = new Schema({ // store watched topics in userSchema
     topic_name: String,
     videos: [video]
 })

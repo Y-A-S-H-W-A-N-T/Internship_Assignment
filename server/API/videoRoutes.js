@@ -21,7 +21,6 @@ router.post('/get-videos',async(req,res)=>{
 router.post('/get-topic-video',async(req,res)=>{
     try{
         const result = await Videos.findOne({_id: req.body.topic_id,},'videos')
-        console.log(result)
         if(result)
             res.status(200).send(result)
     }

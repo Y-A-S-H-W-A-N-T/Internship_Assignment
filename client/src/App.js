@@ -5,6 +5,7 @@ import Dashboard from './screens/dashboard'
 import Topic from './screens/topic';
 import Player from './screens/player'
 import axios from 'axios'
+import Login from './screens/login';
 
 const App = () => {
 
@@ -15,7 +16,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/:topic" element={<Topic />} />
         <Route path="/:topic/:id" element={<Player />} />
       </Routes>

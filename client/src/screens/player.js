@@ -49,7 +49,8 @@ const Player = () => {
       });
 
       playerRef.current.on('ended', () => {
-        prepareNext();
+        storeProgress()
+        prepareNext()
       });
     }
 
@@ -74,7 +75,11 @@ const Player = () => {
       },
     });
     window.location.reload();
-  };
+  }
+
+  const storeProgress = async()=>{
+    alert("Store Video Progress")
+  }
 
   return (
     <div>

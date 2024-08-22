@@ -6,6 +6,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const videoRoutes = require('./API/videoRoutes')
+const userRoutes = require('./API/userRoutes')
 
 const mongoose = require('mongoose')
 
@@ -15,6 +16,7 @@ app.use(cors())
 
 
 app.use("/video",videoRoutes)
+app.use("/user",userRoutes)
 
 
 mongoose.connect(process.env.MONGOOSE_URL).then(()=>{
