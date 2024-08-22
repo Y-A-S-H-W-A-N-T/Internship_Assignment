@@ -21,6 +21,7 @@ function Login() {
             console.log(res)
             if(res.status === 200){
                 window.localStorage.setItem('userID',res.data._id)
+                window.localStorage.setItem('userNAME',res.data.user)
                 naviigate('/dashboard',{ replace: true })
             }
         })

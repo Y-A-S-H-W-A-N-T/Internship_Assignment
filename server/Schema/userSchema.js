@@ -6,7 +6,8 @@ const { Schema } = mongoose
 const videos = new Schema({
     video_id: String,
     progress: String ,
-    duration: String // if the plan changes to resume video
+    duration: String,
+    status: String
 })
 
 const modules = new Schema({

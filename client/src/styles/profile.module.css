@@ -1,0 +1,64 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f7f8fa;
+    min-height: 100vh;
+  }
+  
+  .profileContent {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .profileLogo {
+    width: 100px;
+    height: 100px;
+    background: #4a90e2;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profileName {
+    margin-bottom: 40px;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .modulesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .moduleCard {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .moduleCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .moduleContent h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .moduleContent h3 {
+    font-size: 1rem;
+    color: #666;
+  }  

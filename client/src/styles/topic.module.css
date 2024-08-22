@@ -8,10 +8,14 @@
   }
   
   .topicTitle {
-    font-size: 2rem;
+    font-size: 5rem;
     font-weight: bold;
     margin-bottom: 20px;
     color: #333;
+    box-shadow: 10px 10px 0px red;
+    padding-bottom: 15px;
+    padding-right: 20px;
+    border-radius: 50px;
   }
   
   .progressContainer {

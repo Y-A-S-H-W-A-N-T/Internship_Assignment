@@ -45,7 +45,7 @@ const Player = () => {
         playbackRates: [0.5, 1, 1.5, 2],
         bigPlayButton: true,
         controlBar: {
-          children: ['playToggle', 'volumePanel', 'fullscreenToggle', 'progressControl'],
+          children: ['playToggle', 'volumePanel', 'fullscreenToggle'],
         },
       })
 
@@ -87,7 +87,7 @@ const Player = () => {
       topic_id: topic_id,
       video_id: video[id-1]._id,
       user_ID: userID,
-      progress: 'completed'
+      status: 'completed'
     })
   }
 

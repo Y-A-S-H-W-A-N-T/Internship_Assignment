@@ -69,12 +69,21 @@ router.post('/get-module-progress', async (req, res) => {
         console.error(error);
         return res.status(500).json({ msg: 'Server error' })
     }
-});
+})
 
+router.post('/get-user',async(req,res)=>{
+    try{
+        const user = await Users.findById(req.body.id)
+        res.status(200).send(user)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 // Dev APIs
 
-router.post('/addUser',async(req,res)=>{
+router.post('/add-user',async(req,res)=>{
     const user = {
         user: 'Soumya',
         password: '123',
