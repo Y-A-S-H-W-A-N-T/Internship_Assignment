@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import styles from '../styles/dash.module.css'
+import LOGO from '../component/logos/intern_logo.png'
 
 function Dashboard() {
 
@@ -30,7 +31,7 @@ function Dashboard() {
     return (
         <div className={styles.container}>
           <div className={styles.header}>
-            <h1>LOGO.....</h1>
+            <img src={LOGO} height={100} width={100}/>
             <div onClick={()=> navigate('/profile')} className={styles.profileIcon}> {user_name && <a style={{textDecoration: 'none', color: 'black'}}>{user_name[0]}</a>} </div>
           </div>
           <h1 className={styles.courseTitle}>COURSES</h1>
