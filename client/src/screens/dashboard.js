@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import styles from '../styles/dash.module.css'
 
 function Dashboard() {
 
     const [videos,setVideos] = useState()
+    const navigate = useNavigate()
 
     const user_name = window.localStorage.getItem('userNAME')
 
@@ -30,7 +31,7 @@ function Dashboard() {
         <div className={styles.container}>
           <div className={styles.header}>
             <h1>LOGO.....</h1>
-            <div className={styles.profileIcon}> {user_name && <Link to='/profile' style={{textDecoration: 'none', color: 'black'}}>{user_name[0]}</Link>} </div>
+            <div onClick={()=> navigate('/profile')} className={styles.profileIcon}> {user_name && <a style={{textDecoration: 'none', color: 'black'}}>{user_name[0]}</a>} </div>
           </div>
           <h1 className={styles.courseTitle}>COURSES</h1>
           <div className={styles.cardsContainer}>

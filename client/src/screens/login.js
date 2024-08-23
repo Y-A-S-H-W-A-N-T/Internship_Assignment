@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import styles from '../styles/login.module.css'
 
 function Login() {
 
@@ -41,15 +42,25 @@ function Login() {
     }
 
 
-  return (
-    <div>
-        <div>
-        <input placeholder='user' onChange={(e)=>setUser((prev)=>({...prev,name: e.target.value}))} value={user.name}/>
-        <input placeholder='password' onChange={(e)=>setUser((prev)=>({...prev,password: e.target.value}))} value={user.password}/>
-        <button onClick={Login}>LOGIN</button>
+    return (
+        <div className={styles.container}>
+            <div className={styles.form}>
+                <input
+                    className={styles.input}
+                    placeholder='user'
+                    onChange={(e) => setUser((prev) => ({ ...prev, name: e.target.value }))}
+                    value={user.name}
+                />
+                <input
+                    className={styles.input}
+                    placeholder='password'
+                    onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
+                    value={user.password}
+                />
+                <button className={styles.button} onClick={Login}>LOGIN</button>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Login

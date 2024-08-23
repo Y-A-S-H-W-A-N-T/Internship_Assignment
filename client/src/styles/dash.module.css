@@ -50,18 +50,27 @@
   }
   
   .card {
-    color: rgb(197, 227, 166);
-    padding: 50px;
-    border-radius: 10px;
-    background-color: #66ab3d;
-    box-shadow: 5px 10px 10px rgb(153, 111, 230);
+    font-family: cursive;
+    color: black;
+    padding: 40px;
+    border-radius: 15px;
+    background-color: #dc665c;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 6px 20px rgba(0, 0, 0, 0.15);
     text-align: center;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .card:hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
     transform: translateY(-5px);
-  }
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.2);
+    background-color: #e8857c;
+}
+
+.card:active {
+    transform: scale(0.98);
+    box-shadow: 0 6px 12px black;
+}
   
   .cardLink {
     text-decoration: none;

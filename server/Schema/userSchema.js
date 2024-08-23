@@ -12,6 +12,7 @@ const videos = new Schema({
 const modules = new Schema({
     module_id: String,
     module_name: String,
+    total_module_video: String,
     module_videos: [videos]
 })
 

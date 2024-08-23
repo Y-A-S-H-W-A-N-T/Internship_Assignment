@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Users } = require('../Schema/userSchema')
+const { Users } = require('../Schema/userSchema');
+const { Videos } = require('../Schema/videoSchema');
 
 router.post('/test',async(req,res)=>{
     console.log("DATA : ",req.body)
@@ -47,10 +48,15 @@ router.post('/store-progress', async (req, res) => {
                 return
             }
         } else {
+
+            const total_videos_in_topic = await Videos.findById(topic_id)
+            const length = total_videos_in_topic.videos.length
+            console.log("This is the length ========================== ",total_videos_in_topic.videos.length)
             user.modules_watched.push({
                 module_id: topic_id,
                 module_name: topic,
-                module_videos: [{ video_id: video_id, duration: duration, video_duration: video_duration}]
+                module_videos: [{ video_id: video_id, duration: duration, video_duration: video_duration}],
+                total_module_video: length
             });
             await user.save();
             console.log("Module Added");
