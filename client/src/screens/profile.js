@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles/profile.module.css'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router';
 
 function Profile() {
 
   const userID = window.localStorage.getItem('userID')
+  const navigate = useNavigate()
 
   const [user,setUser] = useState()
 
@@ -29,6 +31,12 @@ function Profile() {
     fetchUser()
   },[])
 
+  const Logout = async()=>{
+    window.localStorage.removeItem('userID')
+    window.localStorage.removeItem('userNAME')
+    navigate('/',{replace: true})
+  }
+
   return (
     <div className={styles.profileContainer}>
       {user && (
@@ -37,7 +45,10 @@ function Profile() {
             <h1>{user.data.user[0]}</h1>
           </div>
           <div className={styles.profileName}>
-            <h1>{user.user}</h1>
+            <h1>{user.data.user}</h1>
+          </div>
+          <div className={styles.logoutButton} onClick={Logout}>
+            <h2>LOGOUT</h2>
           </div>
           <div className={styles.modulesContainer}>
             {user.data.modules_watched.map((module, ind) => (

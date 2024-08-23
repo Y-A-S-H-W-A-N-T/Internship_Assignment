@@ -87,4 +87,32 @@
     width: 80px;
     flex-shrink: 0;
   }
+
+  .profileContent {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .logoutButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: #4a90e2;
+    font-size: 0.6rem;
+    transition: color 0.3s ease;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    box-shadow: 2px 2px 2px black;
+  }
+  
+  .logoutButton:hover {
+    transition: 600ms;
+    color: white;
+    background-color: black;
+  }
+  
   

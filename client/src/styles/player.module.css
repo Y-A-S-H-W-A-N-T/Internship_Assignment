@@ -4,21 +4,21 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    border-radius: 10px; /* Rounded corners for the whole container */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     max-width: 1000px;
     height: 600px;
-    margin: 0 auto; /* Center the container */
-    position: relative; /* Allow absolute positioning of progress indicators */
+    margin: 0 auto;
+    position: relative;
   }
   
   .videoPlayer {
     height: 200px;
-    width: 200px; /* Make video player responsive */
+    width: 200px;
     max-width: 200px;
     margin: 20px 0;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Shadow around the video player */
-    border-radius: 10px; /* Rounded corners for the video player */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
   }
   
   .header {
@@ -54,22 +54,22 @@
     font-size: 24px;
     margin-top: 20px;
     text-align: center;
-    color: #333; /* Darker color for the end message */
+    color: #333;
   }
   
   .button {
-    background-color: #ec3960; /* Blue background */
+    background-color: #ec3960;
     color: white;
     font-size: 18px;
     padding: 10px 20px;
     margin-top: 20px;
     border: none;
-    border-radius: 50px; /* Rounded corners for buttons */
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   }
   
   .button:hover {
-    background-color: #dd9494; /* Darker blue on hover */
+    background-color: #dd9494;
   }  
