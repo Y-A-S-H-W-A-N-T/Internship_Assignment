@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/profile.module.css'
+import { CircularProgressbar } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css';
 
 function Profile() {
 
@@ -26,9 +28,6 @@ function Profile() {
     fetchUser()
   },[])
 
-  console.log(user)
-
-
   return (
     <div className={styles.profileContainer}>
       {user && (
@@ -44,7 +43,13 @@ function Profile() {
               <div key={ind} className={styles.moduleCard}>
                 <div className={styles.moduleContent}>
                   <h2>{module.module_name}</h2>
-                  <h3>Videos Watched: {module.module_videos.length}</h3>
+                  <h3>Completed : {module.module_videos.length}/{module.total_module_video}</h3>
+                </div>
+                <div className={styles.circularProgressContainer}>
+                  <CircularProgressbar 
+                    value={module.module_videos.length / module.total_module_video * 100} 
+                    text={`${Math.round(module.module_videos.length / module.total_module_video * 100)}%`} 
+                  />
                 </div>
               </div>
             ))}
