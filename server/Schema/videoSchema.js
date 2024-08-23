@@ -5,7 +5,8 @@ const { Schema } = mongoose
 
 const video = new Schema({ // store watched videos in userSchema
     video_number: String,
-    video_URL: String
+    video_URL: String,
+    video_duration: String,
 })
 
 const videoSchema = new Schema({ // store watched topics in userSchema

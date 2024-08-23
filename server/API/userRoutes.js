@@ -18,58 +18,92 @@ router.post('/login',async(req,res)=>{
 })
 
 router.post('/store-progress', async (req, res) => {
-    const { user_ID, topic_id, video_id, progress, topic } = req.body
+    const { user_ID, topic_id, video_id, duration, topic, video_duration } = req.body;
     try {
-        const user = await Users.findById(user_ID)
+        const user = await Users.findById(user_ID);
         if (!user) {
-            return res.json({ msg: 'User not found' });
+            return res.status(404).json({ msg: 'User not found' });
         }
+
+        // Find the module
         let module = user.modules_watched.find(m => m.module_id === topic_id);
+
         if (module) {
-            const videoExists = module.module_videos.some(v => v.video_id === video_id);
-            if (videoExists) {
-                console.log("Video Exists") //
-                return res.json({ msg: 'Video already exists in this module' });
+            console.log("asdadasdasdddasad========================================== : ",module)
+            let video = module.module_videos.find(v => v.video_id === video_id);
+            console.log(video)
+            if (video) {
+                // Update the video progress
+                video.duration = duration;
+                video.video_duration = video_duration
+                console.log("Video progress updated")
+                await user.save()
+                return
             } else {
-                console.log('Video Added') //
-                module.module_videos.push({ video_id: video_id, progress: progress });
+                // Add new video if not found
+                module.module_videos.push({ video_id: video_id, duration: duration, video_duration: video_duration});
+                console.log("Video Added");
+                await user.save()
+                return
             }
         } else {
-            console.log("Module Added") //
             user.modules_watched.push({
                 module_id: topic_id,
                 module_name: topic,
-                module_videos: [{ video_id: video_id, progress: progress }]
+                module_videos: [{ video_id: video_id, duration: duration, video_duration: video_duration}]
             });
+            await user.save();
+            console.log("Module Added");
+            return
         }
-        await user.save();
-
-        return res.status(200).json({ msg: 'Video added successfully' });
-
     } catch (error) {
         console.error(error);
-        return res.json({ msg: 'Server error' });
+        return res.status(500).json({ msg: 'Server error' });
     }
-})
+});
 
 router.post('/get-module-progress', async (req, res) => {
-    const { topic_id, user_ID } = req.body
+    const { topic_id, user_ID } = req.body;
     try {
         const user = await Users.findById(user_ID);
         if (!user) {
             return res.status(404).json({ msg: 'User Not Found' });
         }
-        const module = user.modules_watched.find(m => m.module_id === topic_id)
+
+        const module = user.modules_watched.find(m => m.module_id === topic_id);
         if (module) {
-            return res.status(200).json({ completed_videos: module.module_videos })
+            const module_videos = module.module_videos;
+
+            // Separate completed and pending videos
+            const completed_videos = module_videos.filter(v => v.duration === v.video_duration) // if it contains all videos, the course is over
+            
+            let last_video_duration = null
+            let video_number = null
+
+            for (let i = 0; i <= module_videos.length-1; i++) {
+                const video = module_videos[i];
+                if (video.duration !== video.video_duration) {
+                    last_video_duration = video.duration
+                    video_number = i+1
+                    break;
+                }
+            }
+
+            const response = {
+                completed_videos: completed_videos,
+                last_video_duration: last_video_duration,
+                video_number: video_number
+            };
+
+            return res.status(200).json(response);
         } else {
-            return res.status(404).json({ msg: 'Module Not Found' })
+            return res.status(404).json({ msg: 'Module Not Found' });
         }
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ msg: 'Server error' })
+        return res.status(500).json({ msg: 'Server error' });
     }
-})
+});
 
 router.post('/get-user',async(req,res)=>{
     try{
@@ -83,7 +117,7 @@ router.post('/get-user',async(req,res)=>{
 
 // Dev APIs
 
-router.post('/add-user',async(req,res)=>{
+router.post('/add-user', async (req,res) => {
     const user = {
         user: 'Soumya',
         password: '123',

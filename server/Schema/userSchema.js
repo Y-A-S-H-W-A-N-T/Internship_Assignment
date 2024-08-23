@@ -5,9 +5,8 @@ const { Schema } = mongoose
 
 const videos = new Schema({
     video_id: String,
-    progress: String ,
     duration: String,
-    status: String
+    video_duration: String
 })
 
 const modules = new Schema({
