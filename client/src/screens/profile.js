@@ -16,6 +16,7 @@ function Profile() {
     })
     .then((res)=>{
       if(res.status === 200){
+        console.log(res.data.data)
         setUser(res.data)
       }
       else{
@@ -33,22 +34,22 @@ function Profile() {
       {user && (
         <div className={styles.profileContent}>
           <div className={styles.profileLogo}>
-            <h1>{user.user[0]}</h1>
+            <h1>{user.data.user[0]}</h1>
           </div>
           <div className={styles.profileName}>
             <h1>{user.user}</h1>
           </div>
           <div className={styles.modulesContainer}>
-            {user.modules_watched.map((module, ind) => (
+            {user.data.modules_watched.map((module, ind) => (
               <div key={ind} className={styles.moduleCard}>
                 <div className={styles.moduleContent}>
                   <h2>{module.module_name}</h2>
-                  <h3>Completed : {module.module_videos.length}/{module.total_module_video}</h3>
+                  <h3>Completed : {user.CompletedVideos[ind].length}/{module.total_module_video}</h3>
                 </div>
                 <div className={styles.circularProgressContainer}>
                   <CircularProgressbar 
-                    value={module.module_videos.length / module.total_module_video * 100} 
-                    text={`${Math.round(module.module_videos.length / module.total_module_video * 100)}%`} 
+                    value={user.CompletedVideos[ind].length / module.total_module_video * 100} 
+                    text={`${Math.round(user.CompletedVideos[ind].length / module.total_module_video * 100)}%`} 
                   />
                 </div>
               </div>

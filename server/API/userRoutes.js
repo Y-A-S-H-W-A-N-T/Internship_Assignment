@@ -51,7 +51,6 @@ router.post('/store-progress', async (req, res) => {
 
             const total_videos_in_topic = await Videos.findById(topic_id)
             const length = total_videos_in_topic.videos.length
-            console.log("This is the length ========================== ",total_videos_in_topic.videos.length)
             user.modules_watched.push({
                 module_id: topic_id,
                 module_name: topic,
@@ -114,7 +113,10 @@ router.post('/get-module-progress', async (req, res) => {
 router.post('/get-user',async(req,res)=>{
     try{
         const user = await Users.findById(req.body.id)
-        res.status(200).send(user)
+        const totalVideos = user.modules_watched.map(vid =>{
+            return vid.module_videos.filter(v => v.duration === v.video_duration)
+        })
+        res.status(200).json({data: user, CompletedVideos: totalVideos})
     }
     catch(err){
         console.log(err)
