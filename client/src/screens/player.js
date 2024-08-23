@@ -15,6 +15,8 @@ const Player = () => {
   const location = useLocation();
   const { topic_id, completeStatus, totalVideos, time_duration } = location.state || '';
 
+  const userID = window.localStorage.getItem('userID')
+
   const fetchVideo = async () => {
     try {
       const res = await axios.post('http://localhost:8000/video/get-topic-video', {
@@ -30,8 +32,24 @@ const Player = () => {
     }
   };
 
+  const [progress,setProgress] = useState()
+
+  const fetch_User_Progress = async()=>{
+    await axios.post('http://localhost:8000/user/get-user-progress',{
+      userID: userID,
+      topic_id: topic_id
+    })
+    .then((res)=>{
+      if(res.status === 200){
+        setProgress(res.data.Progress)
+      }
+      else console.log("Error in setting Progress")
+    })
+  }
+
   useEffect(() => {
-    fetchVideo();
+    fetchVideo()
+    fetch_User_Progress()
   },[id,topic]);
 
   useEffect(() => {
@@ -42,7 +60,6 @@ const Player = () => {
         preload: 'auto',
         loop: false,
         muted: false,
-        // poster: 'https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2023/11/shih-tzu-temperament.jpeg.jpg',
         playbackRates: [0.5, 1, 1.5, 2],
         bigPlayButton: true,
         controlBar: {
@@ -92,10 +109,6 @@ const Player = () => {
     window.location.reload();
   }
 
-  const userID = window.localStorage.getItem('userID')
-
-  console.log(video)
-
   const storeProgress = async(currentTime = null)=>{
     console.log("called")
     await axios.post('http://localhost:8000/user/store-progress',{
@@ -112,7 +125,7 @@ const Player = () => {
     <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.progress}>{id}/{totalVideos}</div>
-          <div className={styles.percentage}>{completeStatus>0 ? Math.floor((Number(completeStatus)/totalVideos)*100) : '0'} %</div>
+          <div className={styles.percentage}>{completeStatus>0 ? Math.floor((progress/totalVideos)*100) : '0'} %</div>
         </div>
       {video &&
         <div data-vjs-player className={styles.videoPlayer} style={{height: '500px',width: '600px'}}>

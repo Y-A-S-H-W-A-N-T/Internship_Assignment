@@ -110,13 +110,29 @@ router.post('/get-module-progress', async (req, res) => {
     }
 });
 
-router.post('/get-user',async(req,res)=>{
+router.post('/get-user', async (req,res) => {
     try{
         const user = await Users.findById(req.body.id)
         const totalVideos = user.modules_watched.map(vid =>{
             return vid.module_videos.filter(v => v.duration === v.video_duration)
         })
         res.status(200).json({data: user, CompletedVideos: totalVideos})
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+router.post('/get-user-progress', async (req,res) => {
+
+    const { topic_id, userID } = req.body
+    try{
+        const user = await Users.findById(req.body.userID)
+        console.log("USER : ",user)
+        const Module = user.modules_watched.find(m => m.module_id === topic_id)
+        console.log("ALLLLLLLLLLLLLLL : ",Module)
+        const progress = Module.module_videos.filter(v => v.duration === v.video_duration)
+        res.status(200).json({Progress: progress.length || 0})
     }
     catch(err){
         console.log(err)
