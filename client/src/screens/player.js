@@ -4,6 +4,8 @@ import 'video.js/dist/video-js.css';
 import axios from 'axios';
 import { useLocation, useNavigate, useParams } from 'react-router'
 import styles from '../styles/player.module.css'
+import { CircularProgressbar } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css';
 
 const Player = () => {
   const { topic, id } = useParams();
@@ -125,7 +127,12 @@ const Player = () => {
     <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.progress}>{id}/{totalVideos}</div>
-          <div className={styles.percentage}>{completeStatus>0 ? Math.floor((progress/totalVideos)*100) : '0'} %</div>
+          <div className={styles.percentage}>
+            <CircularProgressbar 
+                      value={ (progress/totalVideos) * 100 } 
+                      text={ `${Math.round(progress/totalVideos * 100)} % ` } 
+            />
+          </div>
         </div>
       {video &&
         <div data-vjs-player className={styles.videoPlayer} style={{height: '500px',width: '600px'}}>
