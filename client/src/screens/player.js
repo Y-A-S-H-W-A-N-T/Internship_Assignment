@@ -22,7 +22,7 @@ const Player = () => {
 
   const fetchVideo = async () => { // fetching the particular video from the module
     try {
-      const res = await axios.post('http://localhost:8000/video/get-topic-video', {
+      const res = await axios.post('https://coursestream.onrender.com/video/get-topic-video', {
         topic_id: topic_id,
         video_number: id
       });
@@ -37,7 +37,7 @@ const Player = () => {
   const [progress,setProgress] = useState()
 
   const fetch_User_Progress = async()=>{
-    await axios.post('http://localhost:8000/user/get-user-progress',{ // fetch
+    await axios.post('https://coursestream.onrender.com/user/get-user-progress',{ // fetch
       userID: userID,
       topic_id: topic_id
     })
@@ -113,7 +113,7 @@ const Player = () => {
   }
 
   const storeProgress = async(currentTime = null)=>{ // store progress of the video at each intervals
-    await axios.post('http://localhost:8000/user/store-progress',{
+    await axios.post('https://coursestream.onrender.com/user/store-progress',{
       topic: topic,
       topic_id: topic_id,
       video_id: video?._id,

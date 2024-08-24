@@ -15,7 +15,7 @@ function Topic() {
   const fetchModuleProgress = async () => {
     try {
       // Fetch the module progress for the user
-      const res = await axios.post('http://localhost:8000/user/get-module-progress', {
+      const res = await axios.post('https://coursestream.onrender.com/user/get-module-progress', {
         topic_id: course._id,
         user_ID: userID,
       });

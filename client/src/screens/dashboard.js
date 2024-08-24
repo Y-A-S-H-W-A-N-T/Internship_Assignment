@@ -15,7 +15,7 @@ function Dashboard() {
     const user_name = window.localStorage.getItem('userNAME')
 
     const fetchVideos = async()=>{
-        await axios.post('http://localhost:8000/video/get-videos')
+        await axios.post('https://coursestream.onrender.com/video/get-videos')
         .then((res)=>{
             if(res.status === 200)
                 setVideos(res.data)
