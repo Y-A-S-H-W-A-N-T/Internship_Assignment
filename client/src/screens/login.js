@@ -37,14 +37,14 @@ function Login() {
                     password: ''
                 });
                 alert(err.response.data.msg)
-                setLoading(fasle)
+                setLoading(false)
             }
             else{
                 alert("Error in Login")
             }
             return
         })
-        setLoading(fasle)
+        setLoading(false)
     }
 
 
