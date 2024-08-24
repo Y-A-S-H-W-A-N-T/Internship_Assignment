@@ -12,13 +12,15 @@ function Profile() {
 
   const [user,setUser] = useState()
 
+  // fetch user
+  // fetch user's progress, only ones he started
+
   const fetchUser = async()=>{
     await axios.post('http://localhost:8000/user/get-user',{
       id: userID
     })
     .then((res)=>{
       if(res.status === 200){
-        console.log(res.data.data)
         setUser(res.data)
       }
       else{

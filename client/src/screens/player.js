@@ -20,14 +20,13 @@ const Player = () => {
 
   const userID = window.localStorage.getItem('userID')
 
-  const fetchVideo = async () => {
+  const fetchVideo = async () => { // fetching the particular video from the module
     try {
       const res = await axios.post('http://localhost:8000/video/get-topic-video', {
         topic_id: topic_id,
         video_number: id
       });
       if (res.status === 200 && res.data) {
-        console.log(res.data)
         setVideo(res.data.video)
       }
     } catch (err) {
@@ -38,7 +37,7 @@ const Player = () => {
   const [progress,setProgress] = useState()
 
   const fetch_User_Progress = async()=>{
-    await axios.post('http://localhost:8000/user/get-user-progress',{
+    await axios.post('http://localhost:8000/user/get-user-progress',{ // fetch
       userID: userID,
       topic_id: topic_id
     })
@@ -69,9 +68,10 @@ const Player = () => {
           children: ['playToggle', 'volumePanel', 'fullscreenToggle','remainingTimeDisplay'],
         },
       })
+      // restricting user from fast forwarding, showing remaining time in the video
 
       playerRef.current.on('loadedmetadata', () => {
-        playerRef.current.currentTime(time_duration);
+        playerRef.current.currentTime(time_duration) // watched seconds in the video
       });
 
       playerRef.current.on('ended', () => {
@@ -94,7 +94,7 @@ const Player = () => {
   }, [video,fetchVideo ])
 
   const prepareNext = () => {
-    if (Number(id) >= totalVideos){
+    if (Number(id) >= totalVideos){ // setup the next video to be played
       return;
     }
     setNext(true)
@@ -112,20 +112,22 @@ const Player = () => {
     window.location.reload();
   }
 
-  const storeProgress = async(currentTime = null)=>{
-    console.log("called")
+  const storeProgress = async(currentTime = null)=>{ // store progress of the video at each intervals
     await axios.post('http://localhost:8000/user/store-progress',{
       topic: topic,
       topic_id: topic_id,
       video_id: video?._id,
       user_ID: userID,
       duration: currentTime,
-      video_duration: video?.video_duration
+      video_duration: video?.video_duration // this is used for resuming the video from where he last left
     })
   }
 
   return (
     <div className={styles.container}>
+
+      {/* displaying user's progress in that particular module */}
+
         <div className={styles.header}>
           <div className={styles.progress}><img src={VIDEOS} height={20} width={20}/> {id}/{totalVideos}</div>
           <div className={styles.percentage}>
@@ -135,12 +137,18 @@ const Player = () => {
             />
           </div>
         </div>
+
+      {/* Displaying video using VideoJS */}
+
       {video &&
         <div data-vjs-player className={styles.videoPlayer} style={{height: '500px',width: '600px'}}>
           <video ref={videoRef} className="video-js vjs-big-play-centered" />
         </div>
       }
       {next && Number(id) !== totalVideos && <button className={styles.button} onClick={PlayNext}>NEXT VIDEO</button>}
+
+      {/* displaying end of the course or last video of the course */}
+
       {video && Number(id) === totalVideos && (
         <div className={styles.endMessage}>
           <h3 onClick={()=>navigate('/dashboard',{ replace: true })} className={styles.button}>Back to HOME</h3>

@@ -17,7 +17,6 @@ function Dashboard() {
     const fetchVideos = async()=>{
         await axios.post('http://localhost:8000/video/get-videos')
         .then((res)=>{
-            console.log(res)
             if(res.status === 200)
                 setVideos(res.data)
         })
@@ -25,11 +24,12 @@ function Dashboard() {
             console.log(err)
         })
     }
-
     useEffect(()=>{
         fetchVideos()
     },[])
 
+    // search / filter videos here
+    // navigate to user profile
 
     return (
         <div className={styles.container}>

@@ -5,6 +5,8 @@ import styles from '../styles/login.module.css'
 
 function Login() {
 
+    //basic login
+
     const [user,setUser] = useState({
         name: 'Yashwant',
         password: '1234'
@@ -19,7 +21,6 @@ function Login() {
             password: user.password
         })
         .then((res)=>{
-            console.log(res)
             if(res.status === 200){
                 window.localStorage.setItem('userID',res.data._id)
                 window.localStorage.setItem('userNAME',res.data.user)

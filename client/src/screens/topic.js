@@ -21,15 +21,18 @@ function Topic() {
       });
       
       if (res.status === 200 && res.data) {
-
-        console.log(res.data)
-        console.log(res.data.video_number)
         const completedVideos = res.data.completed_videos; // Array of video completed by the user
-        setResumeDuration(res.data.last_video_duration)
+        setResumeDuration(res.data.last_video_duration) // to be resumed video duration
+
         const completedVideoIds = completedVideos.map(video => video.video_id)
-        setCompletedVideos(completedVideoIds)
+        setCompletedVideos(completedVideoIds) // stroring IDs of completed videos
+
         const index = course.videos.findIndex(video => !completedVideoIds.includes(video._id))
-        console.log(index)
+
+        // store/pass index (ID) for displaying the resumed video
+
+        //resumelink contains the link to the resume video, It is a Dynamic Link
+
         if (index !== -1) {
           setResumeLink(`/${course.topic_name}/${res.data.video_number || res.data.completed_videos.length+1}`);
         } else {
@@ -44,8 +47,6 @@ function Topic() {
       }
     }
   };
-  
-  console.log(resumeDuration,completedVideos)
 
   useEffect(() => {
     fetchModuleProgress();
@@ -55,6 +56,8 @@ function Topic() {
     <div className={styles.container}>
       {course && <h1 className={styles.topicTitle}>{course.topic_name}</h1>}
       
+      {/* showing progress of the course */}
+
       {completedVideos.length>0 ? (
         <div className={styles.progressContainer}>
           <h2 className={styles.progressText}>Videos Watched{completedVideos.length}/{course.videos.length}</h2>
@@ -68,6 +71,8 @@ function Topic() {
           </div>
       }
       
+      {/*display whether to Start from begining, resume course or the course is completed according to data comming from user's DB */}
+
       {course && (
         <div>
           <Link

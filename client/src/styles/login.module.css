@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 0 2rem; /* Add some padding to prevent overflow on smaller screens */
+    padding: 0 2rem;
 }
 
 .form {
@@ -13,7 +13,7 @@
     padding: 5rem;
     box-shadow: 0 4px 6px rgb(0, 0, 0);
     border-radius: 8px;
-    margin-right: 2rem; /* Space between the form and the user list */
+    margin-right: 2rem;
 }
 
 .userList {
