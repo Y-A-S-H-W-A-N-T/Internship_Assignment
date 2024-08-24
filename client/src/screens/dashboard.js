@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import styles from '../styles/dash.module.css'
 import LOGO from '../component/logos/intern_logo.png'
+import MP from '../component/logos/mp.png'
+import VIDEOS from '../component/logos/videos.png'
 
 function Dashboard() {
 
@@ -33,7 +35,7 @@ function Dashboard() {
         <div className={styles.container}>
           <div className={styles.header}>
             <img src={LOGO} height={100} width={100}/>
-            <h1 className={styles.courseTitle}>COURSES</h1>
+            <h1 className={styles.courseTitle}>Course<span style={{color: '#e8857c'}}>Stream</span></h1>
             <div onClick={()=> navigate('/profile')} className={styles.profileIcon}> {user_name && <a style={{textDecoration: 'none', color: 'black'}}>{user_name[0]}</a>} </div>
           </div>
           <div className={styles.searchbar}>
@@ -50,9 +52,16 @@ function Dashboard() {
                   state={{ Topic: val }}
                   className={styles.cardLink}
                 >
-                  <div key={ind} className={styles.card}>
-                      <h2>{val.topic_name}</h2>
-                      <h3>Total Videos : {val.videos.length}</h3>
+                  <div key={ind} style={{borderBottom: '2px solid grey', paddingBottom: 15, fontFamily: 'cursive', fontSize: '1rem'}}>
+                        <img src={MP} height={250} width={250}/>
+                      <div style={{marginTop: -50}}>
+                        <div style={{display: 'flex', float: 'left', marginLeft: 40}}>
+                          <h2>{val.topic_name}</h2>
+                        </div>
+                        <div style={{display: 'flex', float: 'right',marginRight: 40}}>
+                          <h3><img src={VIDEOS} height={20} width={20}/> {val.videos.length}</h3>
+                        </div>
+                      </div>
                   </div>
               </Link>
             ))}

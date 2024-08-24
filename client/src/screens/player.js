@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useLocation, useNavigate, useParams } from 'react-router'
 import styles from '../styles/player.module.css'
 import { CircularProgressbar } from 'react-circular-progressbar'
-import 'react-circular-progressbar/dist/styles.css';
+import 'react-circular-progressbar/dist/styles.css'
+import VIDEOS from '../component/logos/videos.png'
 
 const Player = () => {
   const { topic, id } = useParams();
@@ -126,7 +127,7 @@ const Player = () => {
   return (
     <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.progress}>{id}/{totalVideos}</div>
+          <div className={styles.progress}><img src={VIDEOS} height={20} width={20}/> {id}/{totalVideos}</div>
           <div className={styles.percentage}>
             <CircularProgressbar 
                       value={ (progress/totalVideos) * 100 } 
