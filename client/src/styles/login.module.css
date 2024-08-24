@@ -1,10 +1,9 @@
-/* login.module.css */
-
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 0 2rem; /* Add some padding to prevent overflow on smaller screens */
 }
 
 .form {
@@ -14,6 +13,32 @@
     padding: 5rem;
     box-shadow: 0 4px 6px rgb(0, 0, 0);
     border-radius: 8px;
+    margin-right: 2rem; /* Space between the form and the user list */
+}
+
+.userList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 25%;
+    cursor: pointer;
+    font-family: cursive;
+}
+
+.userList h2{
+    box-shadow: 0 4px 6px rgb(0, 0, 0);
+    padding: 5px;
+    color: #c32e33;
+    border-radius: 20px;
+    transition: 600ms;
+    font-weight: lighter;
+}
+
+.userList h2:hover{
+    transition: 600ms;
+    box-shadow: 0 1px 2px rgb(0, 0, 0);
+    padding: 5px;
+    color: #c32e33;
 }
 
 .input {
@@ -23,9 +48,11 @@
     border: none;
     outline: none;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.4rem;
     box-shadow: 0px 2px 4px black;
     text-align: center;
+    color: #c32e33;
+    font-weight: bold;
 }
 
 .button {

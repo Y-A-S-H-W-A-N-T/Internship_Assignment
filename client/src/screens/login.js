@@ -6,8 +6,8 @@ import styles from '../styles/login.module.css'
 function Login() {
 
     const [user,setUser] = useState({
-        name: '',
-        password: ''
+        name: 'Yashwant',
+        password: '1234'
     })
     const naviigate = useNavigate()
 
@@ -58,6 +58,11 @@ function Login() {
                     value={user.password}
                 />
                 <button className={styles.button} onClick={Login}>LOGIN</button>
+            </div>
+            <div className={styles.userList}>
+                <h2 onClick={()=>setUser({name: 'Yashwant', password: '1234'})}>USER 1</h2>
+                <h2 onClick={()=>setUser({name: 'Soumya', password: '123'})}>USER 2</h2>
+                <h2 onClick={()=>setUser({name: 'Abish', password: '0000'})}>USER 3</h2>
             </div>
         </div>
     )
