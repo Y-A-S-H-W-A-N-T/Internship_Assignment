@@ -10,15 +10,19 @@ function Dashboard() {
 
     const [videos,setVideos] = useState()
     const [search,setSearch] = useState('')
+    const [loading,setLoading] = useState(true)
     const navigate = useNavigate()
 
     const user_name = window.localStorage.getItem('userNAME')
 
     const fetchVideos = async()=>{
-        await axios.post('https://coursestream.onrender.com:8000/video/get-videos')
+      setLoading(true)
+        await axios.post('https://coursestream.onrender.com/video/get-videos')
         .then((res)=>{
-            if(res.status === 200)
-                setVideos(res.data)
+            if(res.status === 200){
+              setVideos(res.data)
+              setLoading(false)
+            }
         })
         .catch((err)=>{
             console.log(err)
@@ -42,6 +46,9 @@ function Dashboard() {
             <input placeholder='eg: ppe/driving/medic' onChange={(e)=>setSearch(e.target.value)}/>
           </div>
           <div className={styles.cardsContainer}>
+            {loading && <div>
+              <h2>Loading...</h2>
+            </div>}
             {videos && videos
               .filter((val) => 
                 !search || val.topic_name.toLowerCase().includes(search.toLowerCase())

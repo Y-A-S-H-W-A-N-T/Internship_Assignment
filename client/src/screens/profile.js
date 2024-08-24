@@ -11,17 +11,19 @@ function Profile() {
   const navigate = useNavigate()
 
   const [user,setUser] = useState()
+  const [loading,setLoading] = useState(true)
 
   // fetch user
   // fetch user's progress, only ones he started
 
   const fetchUser = async()=>{
-    await axios.post('https://coursestream.onrender.com:8000/user/get-user',{
+    await axios.post('https://coursestream.onrender.com/user/get-user',{
       id: userID
     })
     .then((res)=>{
       if(res.status === 200){
         setUser(res.data)
+        setLoading(false)
       }
       else{
         console.log("Error while fetching user")
@@ -53,6 +55,9 @@ function Profile() {
             <h2>LOGOUT</h2>
           </div>
           <div className={styles.modulesContainer}>
+            {loading && <div>
+                <h2>Loading...</h2>
+            </div>}
             {user.data.modules_watched.map((module, ind) => (
               <div key={ind} className={styles.moduleCard}>
                 <div className={styles.moduleContent}>

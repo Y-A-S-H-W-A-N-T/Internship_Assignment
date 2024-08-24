@@ -11,7 +11,7 @@ import Profile from './screens/profile';
 const App = () => {
 
   axios.create({
-    baseURL: 'https://coursestream.onrender.com:8000'
+    baseURL: 'https://coursestream.onrender.com'
   })
 
   return (

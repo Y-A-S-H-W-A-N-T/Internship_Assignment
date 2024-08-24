@@ -11,12 +11,14 @@ function Login() {
         name: 'Yashwant',
         password: '1234'
     })
+    const [loading,setLoading] = useState(false)
     const naviigate = useNavigate()
 
     const Login = async()=>{
+        setLoading(true)
         if(user.name === '' || user.password === '')
             return alert("Enter Credentials")
-        await axios.post('https://coursestream.onrender.com:8000/user/login',{
+        await axios.post('https://coursestream.onrender.com/user/login',{
             user: user.name,
             password: user.password
         })
@@ -24,6 +26,7 @@ function Login() {
             if(res.status === 200){
                 window.localStorage.setItem('userID',res.data._id)
                 window.localStorage.setItem('userNAME',res.data.user)
+                setLoading(false)
                 naviigate('/dashboard',{ replace: true })
             }
         })
@@ -34,12 +37,14 @@ function Login() {
                     password: ''
                 });
                 alert(err.response.data.msg)
+                setLoading(fasle)
             }
             else{
                 alert("Error in Login")
             }
             return
         })
+        setLoading(fasle)
     }
 
 
@@ -58,7 +63,7 @@ function Login() {
                     onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
                     value={user.password}
                 />
-                <button className={styles.button} onClick={Login}>LOGIN</button>
+                <button className={styles.button} onClick={Login}>{loading? 'LOADING':'LOGIN'}</button>
             </div>
             <div className={styles.userList}>
                 <h2 onClick={()=>setUser({name: 'Yashwant', password: '1234'})}>USER 1</h2>

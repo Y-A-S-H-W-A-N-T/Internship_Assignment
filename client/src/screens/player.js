@@ -17,17 +17,20 @@ const Player = () => {
   const [next, setNext] = useState(false)
   const location = useLocation();
   const { topic_id, completeStatus, totalVideos, time_duration } = location.state || '';
+  const [loading,setLoading] = useState(true)
 
   const userID = window.localStorage.getItem('userID')
 
   const fetchVideo = async () => { // fetching the particular video from the module
+    setLoading(true)
     try {
-      const res = await axios.post('https://coursestream.onrender.com:8000/video/get-topic-video', {
+      const res = await axios.post('https://coursestream.onrender.com/video/get-topic-video', {
         topic_id: topic_id,
         video_number: id
       });
       if (res.status === 200 && res.data) {
         setVideo(res.data.video)
+        setLoading(false)
       }
     } catch (err) {
       console.error('Error fetching video:', err);
@@ -37,13 +40,16 @@ const Player = () => {
   const [progress,setProgress] = useState()
 
   const fetch_User_Progress = async()=>{
-    await axios.post('https://coursestream.onrender.com:8000/user/get-user-progress',{ // fetch user progress for displaying circular progress bar
+    setLoading(true)
+    setLoading(true)
+    await axios.post('https://coursestream.onrender.com/user/get-user-progress',{ // fetch user progress for displaying circular progress bar
       userID: userID,
       topic_id: topic_id
     })
     .then((res)=>{
       if(res.status === 200){
         setProgress(res.data.Progress)
+        setLoading(false)
       }
       else console.log("Error in setting Progress")
     })
@@ -113,7 +119,7 @@ const Player = () => {
   }
 
   const storeProgress = async(currentTime = null)=>{ // store progress of the video at each intervals
-    await axios.post('https://coursestream.onrender.com:8000/user/store-progress',{
+    await axios.post('https://coursestream.onrender.com/user/store-progress',{
       topic: topic,
       topic_id: topic_id,
       video_id: video?._id,
@@ -139,6 +145,10 @@ const Player = () => {
         </div>
 
       {/* Displaying video using VideoJS */}
+
+      {loading && <div>
+        <h2>Loading...</h2>
+      </div>}
 
       {video &&
         <div data-vjs-player className={styles.videoPlayer} style={{height: '500px',width: '600px'}}>

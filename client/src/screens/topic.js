@@ -8,6 +8,7 @@ function Topic() {
   const [course, setCourse] = useState(location.state.Topic);
   const [resumeLink, setResumeLink] = useState(null);
   const userID = window.localStorage.getItem('userID')
+  const [loading,setLoading] = useState(true)
 
   const [completedVideos,setCompletedVideos] = useState(0)
   const [resumeDuration,setResumeDuration] = useState()
@@ -15,7 +16,7 @@ function Topic() {
   const fetchModuleProgress = async () => {
     try {
       // Fetch the module progress for the user
-      const res = await axios.post('https://coursestream.onrender.com:8000/user/get-module-progress', {
+      const res = await axios.post('https://coursestream.onrender.com/user/get-module-progress', {
         topic_id: course._id,
         user_ID: userID,
       });
@@ -38,6 +39,7 @@ function Topic() {
         } else {
           setResumeLink('completed')
         }
+        setLoading(false)
       }
     } catch (err) {
       if (err.response?.status === 404) {
@@ -72,6 +74,9 @@ function Topic() {
       }
       
       {/*display whether to Start from begining, resume course or the course is completed according to data comming from user's DB */}
+      {loading && <div>
+        <h2>Loading...</h2>
+      </div>}
 
       {course && (
         <div>
