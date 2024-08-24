@@ -48,6 +48,7 @@ function Topic() {
         console.error('Error fetching module progress:', err);
       }
     }
+    setLoading(false)
   };
 
   useEffect(() => {
