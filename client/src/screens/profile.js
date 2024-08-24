@@ -16,7 +16,7 @@ function Profile() {
   // fetch user's progress, only ones he started
 
   const fetchUser = async()=>{
-    await axios.post('https://coursestream.onrender.com/user/get-user',{
+    await axios.post('https://coursestream.onrender.com:8000/user/get-user',{
       id: userID
     })
     .then((res)=>{

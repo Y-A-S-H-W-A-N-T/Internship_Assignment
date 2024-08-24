@@ -16,7 +16,7 @@ function Login() {
     const Login = async()=>{
         if(user.name === '' || user.password === '')
             return alert("Enter Credentials")
-        await axios.post('https://coursestream.onrender.com/user/login',{
+        await axios.post('https://coursestream.onrender.com:8000/user/login',{
             user: user.name,
             password: user.password
         })
