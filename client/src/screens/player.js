@@ -66,7 +66,7 @@ const Player = () => {
         playbackRates: [0.5, 1, 1.5, 2],
         bigPlayButton: true,
         controlBar: {
-          children: ['playToggle', 'volumePanel', 'fullscreenToggle'],
+          children: ['playToggle', 'volumePanel', 'fullscreenToggle','remainingTimeDisplay'],
         },
       })
 
