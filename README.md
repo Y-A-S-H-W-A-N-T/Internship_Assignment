@@ -17,7 +17,7 @@ A web application for seamless video playback, offering features such as progres
 The VideoJS Playback Project provides a robust video playback solution with features tailored for a seamless learning experience. Users can track their progress, resume playback from where they left off, and navigate through a sequence of videos effortlessly. The application is built with modern technologies to ensure a smooth and responsive user experience.
   ****
 ## Deployment
-- **Hosted Link**: [CourseStream](https://coursestream.vercel.
+- **Hosted Link**: [CourseStream](https://coursestream.vercel)
  ****
 
 ## Features
