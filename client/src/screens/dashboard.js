@@ -7,6 +7,7 @@ import LOGO from '../component/logos/intern_logo.png'
 function Dashboard() {
 
     const [videos,setVideos] = useState()
+    const [search,setSearch] = useState('')
     const navigate = useNavigate()
 
     const user_name = window.localStorage.getItem('userNAME')
@@ -32,20 +33,27 @@ function Dashboard() {
         <div className={styles.container}>
           <div className={styles.header}>
             <img src={LOGO} height={100} width={100}/>
+            <h1 className={styles.courseTitle}>COURSES</h1>
             <div onClick={()=> navigate('/profile')} className={styles.profileIcon}> {user_name && <a style={{textDecoration: 'none', color: 'black'}}>{user_name[0]}</a>} </div>
           </div>
-          <h1 className={styles.courseTitle}>COURSES</h1>
+          <div className={styles.searchbar}>
+            <input placeholder='eg: ppe/driving/medic' onChange={(e)=>setSearch(e.target.value)}/>
+          </div>
           <div className={styles.cardsContainer}>
-            {videos && videos.map((val, ind) => (
-              <Link
-                to={`/${val.topic_name}`}
-                state={{ Topic: val }}
-                className={styles.cardLink}
-              >
-                <div key={ind} className={styles.card}>
-                    <h2>{val.topic_name}</h2>
-                    <h3>Total Videos : {val.videos.length}</h3>
-                </div>
+            {videos && videos
+              .filter((val) => 
+                !search || val.topic_name.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((val, ind) => (
+                <Link
+                  to={`/${val.topic_name}`}
+                  state={{ Topic: val }}
+                  className={styles.cardLink}
+                >
+                  <div key={ind} className={styles.card}>
+                      <h2>{val.topic_name}</h2>
+                      <h3>Total Videos : {val.videos.length}</h3>
+                  </div>
               </Link>
             ))}
           </div>
